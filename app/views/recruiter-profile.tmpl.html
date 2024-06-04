@@ -1,0 +1,176 @@
+<form name="form" ng-submit="form.$valid && saveProfile()" novalidate class="recruiter-form">
+  <md-content layout="column" class="md-padding">
+
+    <md-input-container class="md-block" flex-gt-sm id="input-container-title">
+      <label>Full name *</label>
+      <input auto-focus name="name" ng-required="true"
+             ng-model="user.name">
+      <div ng-show="form.$submitted || form.name.$touched">
+        <div ng-message="required" ng-show="form.name.$error.required">This field is mandatory</div>
+      </div>
+    </md-input-container>
+
+    <md-autocomplete class="md-block icon-with-autocomplete" flex-gt-sm md-input-name="location"
+                     ng-required="true"
+                     md-selected-item="user.recruiter.location"
+                     md-search-text="searchTextLocation"
+                     md-items="location in searchLocation(searchTextLocation)"
+                     md-item-text="location"
+                     md-floating-label="Location *"
+                     md-autocomplete-required>
+      <md-item-template>
+        <span md-highlight-text="searchTextLocation">{{location}}</span>
+      </md-item-template>
+      <md-not-found>
+        No matching location.
+      </md-not-found>
+      <div ng-messages="form.location.$error" ng-if="form.$submitted || form.location.$touched">
+        <div ng-message="selectedItem" ng-show="form.location.$error.selectedItem">Invalid location
+          selected
+        </div>
+        <div ng-message="required" ng-show="form.location.$error.required">This field is mandatory
+        </div>
+      </div>
+    </md-autocomplete>
+
+    <p class="md-body-1">Availability *</p>
+    <md-radio-group name="availability" ng-required="true" ng-model="user.recruiter.availability">
+      <md-radio-button ng-repeat="availability in availabilities"
+                       value="{{availability}}"
+                       class="md-primary">{{availability}}
+      </md-radio-button>
+    </md-radio-group>
+    <div ng-show="form.$submitted || form.availability.$touched">
+      <div class="field-error" ng-message="required" ng-show="form.availability.$error.required">
+        This field is mandatory
+      </div>
+    </div>
+
+
+    <md-autocomplete class="md-block" flex-gt-sm md-input-name="industry1"
+                     ng-required="true"
+                     md-selected-item="user.recruiter.industries[0]"
+                     md-search-text="searchTextIndustry1"
+                     md-items="industry in searchIndustry(searchTextIndustry1)"
+                     md-item-text="industry"
+                     md-floating-label="Industry 1 *"
+                     md-autocomplete-required>
+      <md-item-template>
+        <span md-highlight-text="searchTextLocation">{{industry}}</span>
+      </md-item-template>
+      <md-not-found>
+        No matching industry.
+      </md-not-found>
+      <div ng-messages="form.industry1.$error" ng-if="form.$submitted || form.industry1.$touched">
+        <div ng-message="selectedItem" ng-show="form.industry1.$error.selectedItem">Invalid industry
+          selected
+        </div>
+        <div ng-message="required" ng-show="form.industry1.$error.required">This field is
+          mandatory
+        </div>
+      </div>
+    </md-autocomplete>
+
+    <md-autocomplete class="md-block" flex-gt-sm md-input-name="industry2"
+                     md-selected-item="user.recruiter.industries[1]"
+                     md-search-text="searchTextIndustry2"
+                     md-items="industry in searchIndustry(searchTextIndustry2)"
+                     md-item-text="industry"
+                     md-floating-label="Industry 2"
+                     md-autocomplete-required>
+      <md-item-template>
+        <span md-highlight-text="searchTextLocation">{{industry}}</span>
+      </md-item-template>
+      <md-not-found>
+        No matching industry.
+      </md-not-found>
+      <div ng-messages="form.industry2.$error" ng-if="form.$submitted || form.industry2.$touched">
+        <div ng-message="selectedItem" ng-show="form.industry2.$error.selectedItem">Invalid industry
+          selected
+        </div>
+      </div>
+    </md-autocomplete>
+
+    <md-autocomplete class="md-block" flex-gt-sm md-input-name="industry3"
+                     md-selected-item="user.recruiter.industries[2]"
+                     md-search-text="searchTextIndustry3"
+                     md-items="industry in searchIndustry(searchTextIndustry3)"
+                     md-item-text="industry"
+                     md-floating-label="Industry 3">
+      <md-item-template>
+        <span md-highlight-text="searchTextLocation">{{industry}}</span>
+      </md-item-template>
+      <md-not-found>
+        No matching industry.
+      </md-not-found>
+      <div ng-messages="form.industry3.$error" ng-if="form.$submitted || form.industry3.$touched">
+        <div ng-message="selectedItem" ng-show="form.industry3.$error.selectedItem">Invalid industry
+          selected
+        </div>
+      </div>
+    </md-autocomplete>
+
+    <fieldset class="standard">
+      <legend>Recruitment areas *</legend>
+      <div layout="row" layout-wrap flex>
+        <div flex="100" flex-gt-sm="33" ng-repeat="area in areas">
+          <md-checkbox name="area"
+                       checklist-model="user.recruiter.recruitmentAreas"
+                       checklist-value="area"
+                       ng-required="!(user.recruiter.recruitmentAreas && user.recruiter.recruitmentAreas.length > 0 && user.recruiter.recruitmentAreas.length <= 3)">
+            {{ area }}
+          </md-checkbox>
+        </div>
+      </div>
+      <div ng-messages="form.area.$error" ng-if="form.$submitted || form.area.$touched">
+        <div class="field-error"
+             ng-message="required"
+             ng-show="form.area.$error.required  && user.recruiter.recruitmentAreas.length===0">You
+          must select at least one recruitment area
+        </div>
+        <div class="field-error"
+             ng-message="required"
+             ng-show="form.area.$error.required && user.recruiter.recruitmentAreas.length>3">You
+          cannot select more than 3 recruitment areas
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="standard">
+      <legend>Job Roles *</legend>
+      <div layout="row" layout-wrap flex>
+        <div flex="100" flex-gt-sm="33" ng-repeat="jobRole in jobRoles">
+          <md-checkbox name="jobRole"
+                       checklist-model="user.recruiter.jobRoles"
+                       checklist-value="jobRole"
+                       ng-required="!(user.recruiter.jobRoles && user.recruiter.jobRoles.length > 0 && user.recruiter.jobRoles.length <= 3)">
+            {{ jobRole }}
+          </md-checkbox>
+        </div>
+      </div>
+      <div ng-messages="form.jobRole.$error" ng-if="form.$submitted || form.jobRole.$touched">
+        <div class="field-error"
+             ng-message="required"
+             ng-show="form.jobRole.$error.required  && user.recruiter.jobRoles.length===0">You must
+          select at least one job role
+        </div>
+        <div class="field-error"
+             ng-message="required"
+             ng-show="form.jobRole.$error.required && user.recruiter.jobRoles.length>3">You cannot
+          select more than 3 job roles
+        </div>
+      </div>
+    </fieldset>
+
+    <div layout-gt-sm="row">
+      <span flex-gt-sm></span>
+      <md-progress-circular ng-show="pending" md-mode="indeterminate"></md-progress-circular>
+      <div layout="row">
+        <md-button flex ng-disabled="pending" type="submit" class="md-raised md-primary md-hue-2">
+          Save
+        </md-button>
+      </div>
+    </div>
+  </md-content>
+
+</form>

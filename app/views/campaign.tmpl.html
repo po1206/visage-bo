@@ -1,0 +1,120 @@
+<md-content ng-if="loading" layout="column" layout-align="center center" class="md-padding">
+  <md-progress-circular ng-show="loading" md-mode="indeterminate"></md-progress-circular>
+  <p class="md-body-1">Loading</p>
+</md-content>
+<md-content ng-if="!loading" class="md-padding">
+  <div layout-gt-sm="row">
+    <div>
+      <h3 class="md-caption">Job Launched :</h3>
+      <p class="md-body-1" ng-if="job.launched">{{job.launchedAt |
+        date:"medium"}}</p>
+      <p class="md-body-1" ng-if="!job.launched">Not launched yet</p>
+    </div>
+    <span flex></span>
+    <md-progress-circular ng-show="pendingCampaignLaunch"
+                          md-mode="indeterminate"></md-progress-circular>
+    <md-switch
+      ng-disabled="pending || (job.status!=='Validated' && job.status!=='LonglistReady' && job.status!=='ShortlistReady')"
+      ng-change="onCampaignLaunchChange()"
+      ng-model="job.launched"
+      aria-label="Campaign launch"
+      class="md-accent">
+      Campaign: {{ launched }}
+    </md-switch>
+  </div>
+
+  <div ng-if="job.launched">
+
+    <p ng-if="!expertsAssignments || expertsAssignments.length===0" class="md-headline">1.
+      Pick (an) expert(s)</p>
+
+    <div ng-if="expertsAssignments.length>0">
+      <h2 class="md-head">Experts</h2>
+
+      <md-list ng-if="!pendingExperts">
+        <md-progress-circular ng-show="pendingExperts"
+                              md-mode="indeterminate"></md-progress-circular>
+        <md-list-item ng-click="viewExpert(assignment.expert)"
+                      ng-repeat="assignment in expertsAssignments">
+          <div layout="column">
+            <span class="md-subhead">{{assignment.expert.name}} - {{assignment.expert.expert.location}}</span>
+      <span class="md-body-1">
+        {{assignment.expert.expert.industries.join(',')}}
+      </span>
+          </div>
+          <span flex></span>
+        </md-list-item>
+      </md-list>
+    </div>
+
+    <div layout="row">
+      <md-button flex
+                 class="md-raised md-primary"
+                 ng-click="pickExperts()">
+        <md-icon>work</md-icon>
+        <span ng-show="!expertsAssignments.length>0">Pick</span><span ng-show="expertsAssignments.length>0">Modify</span>
+        experts
+      </md-button>
+    </div>
+
+
+    <p ng-if="!job.sourcing" class="md-headline">2.
+      Ready
+      to launch the sourcing</p>
+
+    <div layout-gt-sm="row">
+      <div>
+        <h3 class="md-caption">Sourcing status :</h3>
+        <p class="md-body-1" ng-if="job.sourcing">{{sourcing}}</p>
+        <p class="md-body-1" ng-if="!job.sourcing">{{sourcing}}</p>
+      </div>
+      <span flex></span>
+      <md-progress-circular ng-show="pendingRequestSourcing"
+                            md-mode="indeterminate"></md-progress-circular>
+      <md-switch
+        ng-disabled="pending || (!job.launched || (job.status!=='Validated' && job.status!=='LonglistReady' && job.status!=='ShortlistReady'))"
+        ng-change="onRequestSourcingChange()"
+        ng-model="job.sourcing"
+        aria-label="Sourcing status"
+        class="md-accent">
+        Sourcing: {{ sourcing }}
+      </md-switch>
+    </div>
+
+    <div ng-if=" job.sourcing">
+      <h2 class="md-head">Recruiters</h2>
+      <md-list ng-if="!pendingRecruiters">
+        <md-progress-circular ng-show="pendingRecruiters"
+                              md-mode="indeterminate"></md-progress-circular>
+        <md-list-item ng-click="viewRecruiter(assignment.recruiter)"
+                      ng-repeat="assignment in recruiterAssignments">
+          <div layout="column">
+            <span class="md-subhead">{{assignment.recruiter.name}} - {{assignment.recruiter.recruiter.location}}</span>
+      <span class="md-body-1">
+        {{assignment.recruiter.recruiter.industries.join(',')}}
+      </span>
+          </div>
+          <span flex></span>
+          <md-icon ng-if="!assignment.invited && !assignment.confirmed">
+            <md-tooltip md-direction="bottom">
+              Subscribed
+            </md-tooltip>
+            done
+          </md-icon>
+          <md-icon ng-if="assignment.invited || assignment.confirmed"
+                   ng-class="{'md-primary' : assignment.confirmed}">
+            <md-tooltip ng-if="assignment.invited" md-direction="bottom">
+              Invited
+            </md-tooltip>
+            <md-tooltip ng-if="assignment.confirmed" md-direction="bottom">
+              Confirmed
+            </md-tooltip>
+            done_all
+          </md-icon>
+        </md-list-item>
+      </md-list>
+    </div>
+  </div>
+
+
+</md-content>

@@ -1,0 +1,21 @@
+<candidates-review-fab
+  ng-if="status === 'Sourced' || status === 'Approved'"
+  review-by="user"
+  job="job"
+  operations="operations"
+  selected-candidate-submission="selectedCandidateSubmission"
+  on-done-reviewing="refreshSubmissions()"></candidates-review-fab>
+
+
+<candidates-add-fab
+  ng-if="status==='Sourced'"
+  referred-by="user"
+  indicators="indicators"
+  job="job"
+  on-done-adding="refreshSubmissions()"></candidates-add-fab>
+
+<candidate-list-and-details
+  job="job"
+  candidate-submissions="candidateSubmissions"
+  selected-candidate-submission="selectedCandidateSubmission">
+</candidate-list-and-details>

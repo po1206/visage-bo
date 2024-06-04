@@ -1,0 +1,29 @@
+<div layout="row" layout-align="start start" class="md-padding">
+  <md-icon>search</md-icon>
+  <md-autocomplete
+    flex
+    md-no-cache="nocache"
+    md-delay="500"
+    md-selected-item="selectedItem"
+    md-search-text-change="searchTextChange(searchText)"
+    md-search-text="searchText"
+    md-selected-item-change="selectedItemChange(item)"
+    md-items="item in launchSearch(searchText)"
+    md-item-text="item.title"
+    md-input-minlength="3"
+    placeholder="Search job or user"
+    md-menu-class="search-box-template">
+    <md-item-template>
+      <div layout="row" layout-align="start center" class="search-result-item">
+        <md-icon ng-if="item.type==='jobOffer'">work</md-icon>
+        <img ng-if="item.picture" alt="{{item.title}} picture"
+             ng-src="{{ item.picture }}" class="md-avatar"/>
+        <div class="item-details" layout="column" flex>
+          <span class="item-title">{{item.title}}</span>
+          <span class="item-metadata">{{item.subtitle}}</span>
+        </div>
+      </div>
+    </md-item-template>
+  </md-autocomplete>
+</div>
+

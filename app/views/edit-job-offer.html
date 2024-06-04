@@ -1,0 +1,51 @@
+<md-content ng-show="job._id" layout="column" class="md-whiteframe-1dp md-padding">
+  <div layout="row">
+    <h2 class="md-head">{{job.title}}</h2>
+    <span flex></span>
+    <span layout="column">
+      <span class="md-caption" ng-if="job.submitted">Submitted on {{job.submitted | date:'medium'}}</span>
+      <span class="md-caption" ng-if="!job.submitted">Not submitted yet</span>
+      <md-input-container md-no-float>
+        <md-select name="salaryRange" ng-change="saveJob()" ng-disabled="pending || disabled" ng-required="true"
+                   ng-model="job.status">
+          <md-option ng-repeat="status in statuses" value="{{status}}">
+            {{status}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+    </span>
+  </div>
+  <div class="job-author-details" ng-hide="user" layout="row" layout-align="center center">
+    <img src="https://placeholdit.imgix.net/~text?txtsize=30&txt=picture+not%20available&w=200&h=200&txttrack=0" alt="{{user.name}} picture">
+  </div>
+  <div class="job-author-details" ng-show="user" layout="row" layout-align="center center">
+    <div layout="column">
+      <span class="md-body-1"> <a href="/#/clients/{{user._id}}">{{user.name}}</a></span>
+      <span class="md-body-1">{{user.employer.company}}</span>
+      <span class="md-body-1"><a
+        href="https://manage.auth0.com/#/users/{{user._id}}">Auth0 profile</a></span>
+    </div>
+    <img ng-src="{{user.picture}}" alt="{{user.name}} picture">
+    <div layout="column">
+      <span class="md-body-1">{{user.employer.phone}}</span>
+      <span class="md-body-1"><a href="mailto:{{user.email}}">{{user.email}}</a></span>
+    </div>
+  </div>
+</md-content>
+<br>
+  <md-content>
+    <md-tabs ng-if="job" md-selected="selectedTab" md-dynamic-height md-border-bottom>
+      <md-tab md-on-select="tabSelected('edit')" label="Edit job">
+        <job-editor job="job" on-job-saved="jobSaved()"></job-editor>
+      </md-tab>
+      <md-tab md-on-select="tabSelected('campaign')" label="Campaign">
+        <campaign>
+        </campaign>
+      </md-tab>
+      <md-tab md-on-select="tabSelected('pipeline')" label="Pipeline">
+        <pipeline>
+        </pipeline>
+      </md-tab>
+    </md-tabs>
+  </md-content>

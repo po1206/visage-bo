@@ -1,0 +1,29 @@
+<md-content class="md-padding">
+  <h2 class="md-head">Active jobs</h2>
+  <md-list>
+    <md-list-item class="md-2-line" ng-repeat="assignment in recruiterAssignments"
+                  ng-click="editJob(assignment.job._id)">
+      <md-tooltip md-delay="500" md-direction="right">
+        {{assignment.job.status}}
+      </md-tooltip>
+      <div class="md-list-item-text" flex layout="column">
+        <h3>
+          <span>{{assignment.job.title}}</span>
+        </h3>
+        <h4><span>{{assignment.job.city}} - {{assignment.job.location}}</span></h4>
+      </div>
+
+
+      <md-icon ng-if="assignment.job.launched !==undefined"
+               ng-class="{'md-primary' : assignment.job.launched , 'md-warn' : assignment.job.launched === false}"
+               class="md-link">lense
+      </md-icon>
+      <md-icon ng-if="assignment.job.sourcing" ng-class="{'md-primary' : assignment.job.sourcing }"
+               class="md-link md-hue-2">lense
+      </md-icon>
+      <div class="md-caption md-button" ng-if="assignment.fromNow>=0">
+        claimed {{assignment.fromNow}} day(s) ago
+      </div>
+    </md-list-item>
+  </md-list>
+</md-content>

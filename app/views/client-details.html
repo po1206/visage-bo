@@ -1,0 +1,56 @@
+<div>
+  <md-content layout="column" layout-padding>
+    <h1 class="md-display-1 md-padding">Your details</h1>
+    <form name="form" class="job-form" ng-submit="proceedToCheckout()" novalidate>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Name</label>
+          <md-icon>person</md-icon>
+          <input ng-disabled="true" name="uName" ng-required="true" ng-model="details.name">
+          <div ng-show="form.$submitted || form.uName.$touched">
+            <div ng-message="required" ng-show="form.uName.$error.required">This field is
+              mandatory
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Company name</label>
+          <md-icon>work</md-icon>
+          <input name="uCompany" ng-required="true" ng-model="details.company">
+          <div ng-show="form.$submitted || form.uCompany.$touched">
+            <div ng-message="required" ng-show="form.uCompany.$error.required">This field is
+              mandatory
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Phone</label>
+        <md-icon>phone</md-icon>
+        <input type="tel" name="uPhone" ng-required="true" ng-model="details.phone">
+        <div ng-show="form.$submitted || form.uPhone.$touched">
+          <div ng-message="required" ng-show="form.uPhone.$error.required">This field is mandatory
+          </div>
+        </div>
+      </md-input-container>
+      <input type="hidden" name="email" value="{{details.email}}">
+
+      <div layout-gt-sm="row">
+        <span flex-gt-sm></span>
+        <md-progress-circular  ng-show="pending" md-mode="indeterminate"></md-progress-circular>
+        <div layout="row">
+          <md-button flex
+                     ng-disabled="pending || form.$invalid "
+                     type="submit"
+                     class="md-raised md-primary md-hue-2">Save
+          </md-button>
+        </div>
+      </div>
+
+    </form>
+  </md-content>
+</div>
+

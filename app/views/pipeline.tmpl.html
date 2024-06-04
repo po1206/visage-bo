@@ -1,0 +1,56 @@
+<md-content ng-if="notLoaded" layout="column" layout-align="center center" class="md-padding">
+  <md-progress-circular ng-show="notLoaded" md-mode="indeterminate"></md-progress-circular>
+  <p class="md-body-1">Loading</p>
+</md-content>
+<md-content ng-if="!notLoaded" class="md-padding">
+  <div layout="row">
+    <pipeline-item flex
+                   job-id="jobId"
+                   refresh-rate="20000"
+                   label="Master"
+                   view-candidates-path="viewCandidatesPath"
+                   downloadable="true"></pipeline-item>
+    <pipeline-item flex
+                   status="Sourced"
+                   job-id="jobId"
+                   refresh-rate="20000"
+                   view-candidates-path="viewCandidatesSourcedPath"
+                   downloadable="true"></pipeline-item>
+    <pipeline-item flex
+                   status="Approved"
+                   job-id="jobId"
+                   refresh-rate="20000"
+                   view-candidates-path="viewCandidatesApprovedPath"
+                   downloadable="true"></pipeline-item>
+    <pipeline-item flex
+                   status="Shortlisted"
+                   job-id="jobId"
+                   refresh-rate="20000"
+                   view-candidates-path="viewCandidatesShortlistedPath"
+                   downloadable="true"></pipeline-item>
+  </div>
+
+  <div layout="row" layout-align="end end">
+    <md-progress-circular ng-show="pending" md-mode="indeterminate"></md-progress-circular>
+    <md-button ng-disabled="pending"
+               ng-if="job._id && (job.status==='Approved' || job.status==='Calibrated')"
+               ng-click="sendCalibration()"
+               class="md-raised md-primary md-hue-2"
+               flex-xs="100">Send calibration
+    </md-button>
+    <md-button ng-disabled="pending"
+               ng-if="job._id && (job.status==='Validated' || job.status==='LonglistReady')"
+               ng-click="sendLonglist()"
+               class="md-raised md-primary md-hue-2"
+               flex-xs="100">Send long list
+    </md-button>
+
+    <md-button ng-disabled="pending"
+               ng-if="job._id && (job.status==='Validated' || job.status==='LonglistReady' || job.status==='ShortlistReady')"
+               ng-click="sendShortlist()"
+               class="md-raised md-primary md-hue-2"
+               flex-xs="100">Send short list
+    </md-button>
+  </div>
+
+</md-content>

@@ -1,0 +1,27 @@
+<md-virtual-repeat-container class="dynamic-container">
+  <md-list-item class="md-3-line noright" md-virtual-repeat="user in dynamicItems"
+                md-on-demand
+                ng-click="editExpert(user)">
+    <img ng-hide="user.name" alt="default picture" ng-src="images/default-avatar.png"
+         class="md-avatar"/>
+    <img ng-show="user.name" alt="{{ user.name }} picture" ng-src="{{ user.picture }}"
+         class="md-avatar"/>
+    <div ng-show="user.name" class="md-list-item-text" layout="column">
+      <h3><span class="md-subhead">{{user.name}} - {{user.expert.location}}</span></h3>
+      <h4><span class="md-body-1">
+                {{user.expert.industries.join(',')}}
+              </span></h4>
+      <p class="job-row-details">{{user.expert.areas.join(',')}}</p>
+    </div>
+    <md-checkbox ng-if="selectable"
+                 class="md-accent md-secondary"
+                 ng-model="user.selected"
+                 ng-click="selectExpert(user)"
+                 aria-label="Select Expert"></md-checkbox>
+
+  </md-list-item>
+  <md-list-item ng-show="pendingExperts">
+    <md-progress-circular class="md-padding center-block"
+                          ng-show="pendingExperts" md-mode="indeterminate"></md-progress-circular>
+  </md-list-item>
+</md-virtual-repeat-container>

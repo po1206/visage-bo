@@ -1,0 +1,47 @@
+<div layout="column">
+  <div class="md-whiteframe-z1">
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h2 class="md-flex">{{title}}</h2>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <md-progress-circular class="md-padding center-block"
+                            ng-show="pendingJobs"
+                            md-mode="indeterminate"></md-progress-circular>
+      <md-list ng-repeat="(status, jobs) in jobsData">
+        <md-subheader class="md-no-sticky">{{status}}</md-subheader>
+        <md-list-item class="md-3-line noright" ng-repeat="jobOffer in jobs"
+                      ng-click="editJob(jobOffer._id)">
+          <md-tooltip md-delay="500" md-direction="right">
+            {{jobOffer.status}}
+          </md-tooltip>
+          <img ng-if="usersById" alt="{{ usersById[jobOffer.employer_id].name }} picture"
+               ng-src="{{ usersById[jobOffer.employer_id].picture }}" class="md-avatar"/>
+          <div class="md-list-item-text" layout="column">
+            <h3><span class="job-row-details">{{jobOffer.title}}<span ng-if="usersById"> - {{usersById[jobOffer.employer_id].employer.company}}</span></span>
+            </h3>
+            <h4><span class="job-row-details">{{jobOffer.city}} - {{jobOffer.location}}</span></h4>
+            <p class="job-row-details" ng-if="usersById && !jobOffer.launched">Submitted by
+              {{usersById[jobOffer.employer_id].name}} on
+              {{jobOffer.submitted | date:'medium'}}</p>
+            <p class="job-row-details" ng-if="usersById && jobOffer.launched">Launched at
+              {{jobOffer.launchedAt | date:'medium'}}</p>
+          </div>
+          <md-icon ng-if="jobOffer.launched !==undefined"
+                   ng-class="{'md-primary' : jobOffer.launched , 'md-warn' : jobOffer.launched === false}"
+                   class="md-link">lense
+          </md-icon>
+          <md-icon ng-if="jobOffer.sourcing" ng-class="{'md-primary' : jobOffer.sourcing }"
+                   class="md-link md-hue-2">lense
+          </md-icon>
+          <div class="md-caption md-button" ng-if="jobOffer.fromNow>=0"
+               ng-class="{'md-accent':jobOffer.fromNow>5, 'md-warn':jobOffer.fromNow>5}">
+            {{jobOffer.fromNow}} day(s)
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+</div>
+

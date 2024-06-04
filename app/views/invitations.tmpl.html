@@ -1,0 +1,21 @@
+<md-list class="md-dense" flex>
+  <md-subheader class="md-no-sticky">
+    Sent
+  </md-subheader>
+  <md-list-item ng-repeat="invitation in history | orderBy:'-sentOn' "
+                ng-if="invitation.status==='Sent'">
+    <span>{{ invitation.email }}</span>
+    <span flex></span>
+    <span>{{ invitation.status }} on {{ getRelevantDate(invitation) | date:'MMM dd, HH:mm:ss'}} </span>
+
+  </md-list-item>
+  <md-subheader class="md-no-sticky">
+    Confirmed
+  </md-subheader>
+  <md-list-item ng-repeat="invitation in history | orderBy:'-confirmedOn'"
+                ng-if="invitation.status==='Confirmed'" layout="row">
+    <span>{{ invitation.email }}</span>
+    <span flex></span>
+    <span>{{ invitation.status }} on {{ getRelevantDate(invitation) | date:'MMM dd, HH:mm:ss'}} </span>
+  </md-list-item>
+</md-list>

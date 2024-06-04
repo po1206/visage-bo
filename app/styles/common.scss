@@ -1,0 +1,211 @@
+@import "colors";
+@import "mixins";
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+  local('MaterialIcons-Regular'),
+  url(../fonts/MaterialIcons-Regular.woff2) format('woff2'),
+  url(../fonts/MaterialIcons-Regular.woff) format('woff'),
+  url(../fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+.visage {
+  .primary-light-bg,
+  .button-primary-light,
+  .bar .button-primary-light,
+  .header-primary-light,
+  .button-bar-primary-light,
+  .bar-primary-light,
+  .primary-light-border,
+  .primary-light-bg:hover,
+  .button-primary-light:hover,
+  .bar .button-primary-light:hover,
+  .header-primary-light:hover,
+  .button-bar-primary-light:hover,
+  .bar-primary-light:hover,
+  .primary-light-border:hover,
+  .primary-light-bg:active,
+  .button-primary-light:active,
+  .bar .button-primary-light:active,
+  .header-primary-light:active,
+  .button-bar-primary-light:active,
+  .bar-primary-light:active,
+  .primary-light-border:active,
+  .primary-light-bg.activated,
+  .button-primary-light.activated,
+  .bar .button-primary-light.activated,
+  .header-primary-light.activated,
+  .button-bar-primary-light.activated,
+  .bar-primary-light.activated,
+  .primary-light-border.activated {
+    background-color: $primary-light-bg;
+    color: $primary-light-color;
+  }
+
+  .primary-light-text {
+    color: $primary-light-text-color;
+  }
+
+  .primary-normal-bg,
+  .button-primary-normal,
+  .bar .button-primary-normal,
+  .header-primary-normal,
+  .button-bar-primary-normal,
+  .bar-primary-normal,
+  .primary-normal-border,
+  .primary-normal-bg:hover,
+  .button-primary-normal:hover,
+  .bar .button-primary-normal:hover,
+  .header-primary-normal:hover,
+  .button-bar-primary-normal:hover,
+  .bar-primary-normal:hover,
+  .primary-normal-border:hover,
+  .primary-normal-bg:active,
+  .button-primary-normal:active,
+  .bar .button-primary-normal:active,
+  .header-primary-normal:active,
+  .button-bar-primary-normal:active,
+  .bar-primary-normal:active,
+  .primary-normal-border:active,
+  .primary-normal-bg.activated,
+  .button-primary-normal.activated,
+  .bar .button-primary-normal.activated,
+  .header-primary-normal.activated,
+  .button-bar-primary-normal.activated,
+  .bar-primary-normal.activated,
+  .primary-normal-border.activated {
+    background-color: $primary-normal-bg;
+    color: $primary-normal-color;
+  }
+
+  .primary-normal-text {
+    color: $primary-normal-bg;
+  }
+
+  .primary-strong-bg,
+  .button-primary-strong,
+  .bar .button-primary-strong,
+  .header-primary-strong,
+  .button-bar-primary-strong,
+  .bar-primary-strong,
+  .primary-strong-border,
+  .primary-strong-bg:hover,
+  .button-primary-strong:hover,
+  .bar .button-primary-strong:hover,
+  .header-primary-strong:hover,
+  .button-bar-primary-strong:hover,
+  .bar-primary-strong:hover,
+  .primary-strong-border:hover,
+  .primary-strong-bg:active,
+  .button-primary-strong:active,
+  .bar .button-primary-strong:active,
+  .header-primary-strong:active,
+  .button-bar-primary-strong:active,
+  .bar-primary-strong:active,
+  .primary-strong-border:active,
+  .primary-strong-bg.activated,
+  .button-primary-strong.activated,
+  .bar .button-primary-strong.activated,
+  .header-primary-strong.activated,
+  .button-bar-primary-strong.activated,
+  .bar-primary-strong.activated,
+  .primary-strong-border.activated {
+    background-color: $primary-strong-bg;
+    color: $primary-strong-color;
+  }
+
+  .primary-strong-text {
+    color: $primary-strong-text-color;
+  }
+
+  .secondary-bg,
+  .button-secondary,
+  .bar .button-secondary,
+  .header-secondary,
+  .button-bar-secondary,
+  .bar-secondary,
+  .secondary-border,
+  .secondary-bg:hover,
+  .button-secondary:hover,
+  .bar .button-secondary:hover,
+  .header-secondary:hover,
+  .button-bar-secondary:hover,
+  .bar-secondary:hover,
+  .secondary-border:hover,
+  .secondary-bg:active,
+  .button-secondary:active,
+  .bar .button-secondary:active,
+  .header-secondary:active,
+  .button-bar-secondary:active,
+  .bar-secondary:active,
+  .secondary-border:active,
+  .secondary-bg.activated,
+  .button-secondary.activated,
+  .bar .button-secondary.activated,
+  .header-secondary.activated,
+  .button-bar-secondary.activated,
+  .bar-secondary.activated,
+  .secondary-border.activated {
+    background-color: $secondary-bg;
+    color: $secondary-color;
+  }
+
+  .secondary-text {
+    color: $secondary-text-color;
+  }
+
+  //Workaround for specific fields which validation is not angular material ready
+  .field-error {
+    color: $error-color;
+    display: block;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    height: 19px;
+    line-height: 14px;
+  }
+
+}

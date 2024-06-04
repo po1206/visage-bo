@@ -1,0 +1,18 @@
+@mixin transition($attribute, $time) {
+  -webkit-transition: $attribute $time;
+  -moz-transition: $attribute $time;
+  -ms-transition: $attribute $time;
+  -o-transition: $attribute $time;
+  transition: $attribute $time;
+}
+
+@mixin box-shadow($left, $top, $width, $color) {
+  -webkit-box-shadow: $left $top $width $color;
+  -moz-box-shadow: $left $top $width $color;
+  -ms-box-shadow: $left $top $width $color;
+  -o-box-shadow: $left $top $width $color;
+
+  box-shadow: $left $top $width $color;
+}
+
+

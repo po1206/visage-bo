@@ -1,0 +1,40 @@
+<md-button class="md-fab md-fab-top-right" ng-click="inviteRecruiter()" id="add-job-offer-btn"
+           aria-label="Add a recruiter">
+  <md-icon>add</md-icon>
+</md-button>
+
+<div layout="row" flex layout-align="center center" layout-margin>
+  <md-datepicker ng-model="searchDateFilter.searchDateFrom"></md-datepicker>
+  <span class="md-flex"> - </span>
+  <md-datepicker ng-model="searchDateFilter.searchDateTo"></md-datepicker>
+  <md-button class="md-primary" ng-click="searchRecruiters()" aria-label="Search Recruiters">
+    Search
+  </md-button>
+</div>
+<div layout="column">
+  <div class="md-whiteframe-z1">
+
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h2>Recruiters</h2>
+        <span flex></span>
+        <a class="md-button" ng-if="csvDownloadUrl" ng-href="{{csvDownloadUrl}}" target="_blank">
+          <md-icon md-menu-align-target>file_download</md-icon>
+          <span> CSV Download </span>
+          <div class="md-ripple-container"></div>
+        </a>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <md-list>
+        <recruiters
+          selectable="true"
+          validated-only="validatedOnly"
+          search-date-filter="searchDateFilter"
+          search-submitted="searchSubmitted">
+        </recruiters>
+      </md-list>
+    </md-content>
+  </div>
+
+</div>

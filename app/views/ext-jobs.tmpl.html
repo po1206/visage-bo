@@ -1,0 +1,29 @@
+<div layout="column">
+  <md-progress-circular class="md-padding center-block" ng-hide="jobs"
+                        md-mode="indeterminate"></md-progress-circular>
+  <p ng-hide="!jobs || jobs.length>0" class="md-padding center-block">No active jobs for now, come
+    back later!</p>
+  <md-list>
+    <md-list-item class="md-3-line"
+                  ng-repeat="jobOffer in jobs"
+                  ng-click="open(jobOffer.url)"
+                  class="noright">
+      <div class="md-list-item-text" layout="column">
+        <h3><span class="md-accent job-row-details">{{jobOffer.title}}</span></h3>
+        <h4><span
+          class="md-accent job-row-details">
+              <md-icon>location_on</md-icon>
+              <span ng-show="jobOffer.location.city">{{jobOffer.location.city}} - </span>{{jobOffer.location.country}}
+            </span></h4>
+        <p class="job-row-details">Published on {{jobOffer.created_at | date:'medium'}}</p>
+      </div>
+      <div class="md-caption">{{jobOffer.fromNow}}</div>
+      <md-checkbox ng-if="selectable" class="md-accent" ng-model="jobOffer.selected"></md-checkbox>
+      <md-icon ng-if="adminLink"
+               ng-click="openExternal($event, jobOffer)"
+               aria-label="Open external"
+               class="md-primary md-hue-2">open_in_new
+      </md-icon>
+    </md-list-item>
+  </md-list>
+</div>

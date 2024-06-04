@@ -1,0 +1,47 @@
+<md-toolbar class="md-primary md-hue-2">
+  <div class="md-toolbar-tools">
+    <h2>
+      <span>Expert</span>
+    </h2>
+    <span flex></span>
+    <md-button ng-click="removeExpert()" class="md-icon-button" aria-label="Remove">
+      <md-tooltip md-direction="bottom">
+        Remove
+      </md-tooltip>
+      <md-icon>delete</md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
+<md-content>
+  <div ng-show="user" layout="column" class="md-padding">
+    <div layout="row">
+      <h2 class="md-display-1">{{user.name}}</h2>
+      <span flex></span>
+      <div layout="column" layout-align="start end">
+        <span class="md-caption">Signed up on {{user.created_at | date:'medium'}}</span>
+      </div>
+    </div>
+    <div class="job-author-details" layout="row" layout-align="center center">
+      <div layout="column">
+        <p class="md-subhead"><a
+          href="https://manage.auth0.com/#/users/{{user._id}}" target="_blank">Manage auth0
+          profile</a></p>
+      </div>
+      <img ng-src="{{user.picture}}" alt="{{user.name}} picture">
+      <div layout="column">
+        <p class="md-subhead"><a href="mailto:{{user.email}}">{{user.email}}</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <md-tabs md-dynamic-height md-border-bottom>
+    <md-tab label="Profile">
+      <expert-profile></expert-profile>
+    </md-tab>
+    <md-tab label="Performances">
+      <expert-performances expert-assignments="expertAssignments">
+      </expert-performances>
+    </md-tab>
+  </md-tabs>
+</md-content>

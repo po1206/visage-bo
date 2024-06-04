@@ -1,0 +1,27 @@
+<div layout="row" id="account-menu">
+  <img class="user-picture" ng-src="{{profile.picture}}" alt="gravatar icon">
+  <md-menu layout="row" ng-if="isAuthenticated()" md-offset="0 -5">
+    <div class="user-login-details" ng-click="openMenu($mdOpenMenu, $event)">
+      <div layout="column" layout-align="start start">
+        <div layout="row" layout-align="center center">
+          <span class="user-name"> {{profile.name}}</span>
+          <md-icon>arrow_drop_down</md-icon>
+        </div>
+        <div>
+          <span class="user-role"> {{portalType}}</span>
+        </div>
+      </div>
+    </div>
+
+    <md-menu-content width="4">
+      <md-menu-item>
+        <md-button id="logout-button" ng-click="logout()">
+          <md-icon md-menu-align-target>exit_to_app</md-icon>
+          Logout
+        </md-button>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
+
+  <md-button md-no-ink ng-if="!isAuthenticated()" ng-click="login()" href>Log in</md-button>
+</div>

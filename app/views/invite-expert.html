@@ -1,0 +1,60 @@
+<div class="md-inline-form" layout="column">
+  <div class="md-whiteframe-z1">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 class="subtitle md-flex">Experts invitations</h2>
+      </div>
+    </md-toolbar>
+    <form name="invitForm" ng-submit="invitForm.$valid && sendExpertsInvitations()">
+      <md-content class="md-padding">
+        <p class="md-body-1">Enter emails of the experts you want to invite to sign up. Separated
+          by commas</p>
+        <md-input-container class="md-block">
+          <label>Experts' emails</label>
+          <textarea ng-required="true"
+                    comma-separated-emails
+                    ng-model="invitationEmails"
+                    name="emails"
+                    md-select-on-focus></textarea>
+        </md-input-container>
+        <div ng-show="invitForm.$submitted || invitForm.emails.$touched">
+          <div ng-message="required" ng-show="invitForm.emails.$error.required" class="field-error">
+            This field is
+            mandatory
+          </div>
+        </div>
+        <div ng-message="multipleEmails"
+             ng-show="invitForm.emails.$error.multipleEmails"
+             class="field-error">Invalid
+          format
+        </div>
+
+        <div layout="row" layout-align="center center">
+          <span flex></span>
+        </div>
+        <div layout="row">
+          <span flex></span>
+          <md-progress-circular  ng-show="pendingInvites" md-mode="indeterminate"></md-progress-circular>
+
+          <md-button type="submit"
+                     ng-disabled="pendingInvites"
+                     class="md-raised md-primary md-hue-2">
+            <md-icon>email</md-icon>
+            Send invitations
+          </md-button>
+        </div>
+      </md-content>
+    </form>
+  </div>
+  <br>
+  <div class="md-whiteframe-z1">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 class="subtitle md-flex">Invitations history</h2>
+      </div>
+    </md-toolbar>
+    <md-content flex class="md-padding">
+      <invitations history="invitations"></invitations>
+    </md-content>
+  </div>
+</div>

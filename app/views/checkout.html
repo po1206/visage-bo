@@ -1,0 +1,98 @@
+<div layout-gt-sm="row">
+  <div flex-gt-sm layout="column">
+    <div class="md-whiteframe-z1">
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2 class="md-flex">Summary</h2>
+        </div>
+      </md-toolbar>
+      <md-content flex layout="column" class="checkout-text-body md-padding">
+        <div layout="row" flex layout-align="end end">
+          <p flex="60" class="md-display-1">Talent Needed</p>
+          <p flex="20" class="md-display-1"> {{quantity}} x {{pricePerUnit}}</p>
+          <p flex="20" class="md-display-1"> {{price}} $ </p>
+        </div>
+        <div layout="row" flex layout-align="end end">
+          <p flex="60" class="md-headline">Discount</p>
+          <p flex="20" class="md-headline"> {{discountRate}} %</p>
+          <p flex="20" class="md-headline"> {{discount}} $</p>
+        </div>
+        <div layout="row" flex layout-align="end end">
+          <p flex="60" class="md-headline">Total</p>
+          <p flex="20" class="md-headline"></p>
+          <p flex="20" class="md-headline"> {{priceAfterDiscount}} $</p>
+        </div>
+        <div layout="row" id="card-container">
+        </div>
+      </md-content>
+    </div>
+    <br>
+    <md-content>
+      <div layout-gt-sm="row">
+        <div layout="column" class="md-padding" layout-align="start start">
+          <div layout="column" layout-gt-sm="row" layout-align="start start">
+            <md-checkbox ng-model="tandc"
+                         name="tandc"
+                         aria-label="T & C"
+                         class="md-primary md-hue-2"
+                         ng-init="tandc=true">
+              <!--<label>-->
+              <p class="md-body-1 tac">You agree that you have read <a class="md-primary md-hue-2"
+                                                                       href
+                                                                       ng-click="openTCDialog($event)">our
+                terms and
+                conditions</a></p>
+
+              <!--</label>-->
+            </md-checkbox>
+          </div>
+          <md-checkbox ng-model="user.newsletter"
+                       name="newsletter"
+                       aria-label="Suscribe to newsletter"
+                       class="md-primary md-hue-2"
+                       ng-init="user.newsletter=true">
+            <!--<label>-->
+            <p class="md-body-1 tac">Suscribe to the Visage newsletter</p>
+            <!--</label>-->
+          </md-checkbox>
+        </div>
+
+        <span flex-gt-sm></span>
+        <!--<div layout-align="end center" layout="row">-->
+        <!--<div layout="column" class="md-margin" layout-align="end end">-->
+        <!--<p class="md-body-1">Pay online and get </p>-->
+        <!--<p class="md-body-1">discount </p>-->
+        <!--</div>-->
+        <!--<h3 class="md-display-2 secondary-text md-margin">20%</h3>-->
+        <!--</div>-->
+      </div>
+
+      <div layout-gt-sm="row">
+        <span flex-gt-sm></span>
+        <div layout="row" layout-align="start center">
+          <span flex></span>
+          <md-icon>lock_outline</md-icon>
+          <div class="md-caption md-margin">Visage will never have access to your credit card
+            details
+          </div>
+        </div>
+        <div layout="column" layout-gt-sm="row">
+          <md-button flex class="md-primary md-raised" ng-click="updateJobs()">
+            Modify Jobs
+          </md-button>
+          <!--<div flex ng-if="quantity" class="md-primary md-button md-raised">-->
+          <!--<form name="paymentForm" ng-submit="checkoutProcess()"-->
+          <!--id="payment-form">-->
+          <!--</form>-->
+          <!--</div>-->
+          <md-button ng-if="quantity" flex class="md-raised"
+                     ng-click="offlineCheckout()">Pay later
+          </md-button>
+        </div>
+
+      </div>
+    </md-content>
+  </div>
+
+</div>
+

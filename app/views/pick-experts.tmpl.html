@@ -1,0 +1,28 @@
+<md-dialog aria-label="Pick experts" style="width: 800px;" ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Experts</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <md-content class="md-padding">
+        <p class="md-subhead">Select the expert you want to assign</p>
+      </md-content>
+      <experts selectable="true" selected-experts="selectedExperts"></experts>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+        Cancel
+      </md-button>
+      <md-button class="md-primary" ng-click="expertsSelected()" style="margin-right:20px;">
+        Select
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

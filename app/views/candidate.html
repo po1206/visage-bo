@@ -1,0 +1,14 @@
+<md-content class="md-whiteframe-1dp open-jobs">
+  <script type='text/javascript' charset='utf-8'>
+    //Too fucking long to load, lets lazy load that
+    require(['workable'],
+      function (workable) {
+        whr(document).ready(function () {
+          whr_embed(60657,
+            {detail: 'titles', base: 'jobs', zoom: 'country', grouping: 'none'});
+        });
+      });
+
+  </script>
+  <div id="whr_embed_hook"></div>
+</md-content>

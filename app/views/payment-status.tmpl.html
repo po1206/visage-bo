@@ -1,0 +1,198 @@
+<div class="md-inline-form" layout="column">
+  <div class="md-whiteframe-z1">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 class="subtitle md-flex">{{user.name}} order</h2>
+      </div>
+    </md-toolbar>
+    <md-content ng-show="payment.productLabel" flex class="md-whiteframe-z1 md-padding">
+      <h2 class="md-subhead">Preview</h2>
+      <div layout="column" class="checkout-text-body">
+        <div layout="row"
+             layout-align="end end">
+          <p flex="60" class="md-body-1">{{payment.productLabel}}</p>
+          <p flex="20" class="md-body-2"></p>
+          <p flex="20" class="md-body-1"> USD {{payment.price}}</p>
+        </div>
+        <div ng-if="payment.discount || payment.discountLabel" layout="row" layout-align="end end">
+          <p flex="60" class="md-body-1">{{payment.discountLabel}}</p>
+          <p flex="20" class="md-body-1"> {{discountRate}} %</p>
+          <p flex="20" class="md-body-1"> USD {{payment.discount}}</p>
+        </div>
+        <div layout="row" layout-align="end end">
+          <p flex="60" class="md-body-2">Total</p>
+          <p flex="20" class="md-body-2"></p>
+          <p flex="20" class="md-body-2"> USD {{priceAfterDiscount}}</p>
+        </div>
+        <div layout="row" id="card-container">
+        </div>
+      </div>
+      <md-divider></md-divider>
+    </md-content>
+    <form name="request" ng-submit="sendPaymentRequest()">
+      <md-content class="md-padding">
+        <div layout="row">
+          <md-input-container flex>
+            <label for="productLabel">Product label *</label>
+            <input required id="productLabel" type="text"
+                   ng-model="payment.productLabel"
+            >
+          </md-input-container>
+          <md-input-container flex="20">
+            <label for="price">Price in USD*</label>
+            <input required
+                   ng-model-options="{ debounce: 500 }"
+                   ng-change="priceChanged()"
+                   id="price"
+                   type="number"
+                   ng-model="payment.price">
+          </md-input-container>
+        </div>
+
+        <div layout="row">
+          <md-input-container flex>
+            <label for="discountLabel">Discount label</label>
+            <input id="discountLabel" type="text"
+                   ng-model="payment.discountLabel">
+          </md-input-container>
+          <md-input-container flex="20">
+            <label for="discount">Discount</label>
+            <input type="number"
+                   ng-model-options="{ debounce: 500 }"
+                   ng-change="priceChanged()"
+                   id="discount"
+                   ng-model="payment.discount">
+          </md-input-container>
+        </div>
+
+        <div class="internal-use">
+          <div layout="row">
+            <md-input-container flex="50">
+              <label>Product Type *</label>
+              <md-select required ng-model="payment.productType">
+                <md-option ng-repeat="productType in productTypes" value="{{productType}}">
+                  {{productType}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <md-input-container flex="50">
+              <label>Job Quantity *</label>
+              <input required
+                     type="number"
+                     step="any"
+                     name="rate"
+                     ng-model="payment.jobQuantity"
+                     min="1"/>
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block">
+            <label>Payment description</label>
+            <textarea ng-model="payment.description"
+                      md-maxlength="150"
+                      rows="5"
+                      md-select-on-focus></textarea>
+          </md-input-container>
+        </div>
+
+        <br>
+        <div layout="row" layout-align="end end">
+          <span flex></span>
+          <span class="md-subhead" flex="10">AED </span>
+          <span class="md-subhead" flex="10">{{priceInAED}}</span>
+          <span class="md-subhead" flex="10">USD</span>
+          <span class="md-subhead" flex="10">{{priceAfterDiscount}}</span>
+        </div>
+
+        <div layout="row" layout-align="center center">
+          <span flex></span>
+        </div>
+        <div layout="row">
+          <span flex></span>
+          <md-button type="submit" class="md-raised md-primary md-hue-2">
+            <md-icon>email</md-icon>
+            Request Payment
+          </md-button>
+        </div>
+      </md-content>
+    </form>
+  </div>
+  <br>
+  <div class="md-whiteframe-z1">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 class="subtitle md-flex">Offline payment</h2>
+      </div>
+    </md-toolbar>
+    <md-content flex class="md-padding">
+      <form name="validate" ng-submit="validatePayment(request)">
+        <div layout="row">
+          <md-input-container flex>
+            <label for="emailPaymentIssuer">Payment issuer email</label>
+            <input required id="emailPaymentIssuer" type="text"
+                   ng-model="emailPaymentIssuer">
+          </md-input-container>
+          <md-datepicker required ng-model="paidOn" md-placeholder="Enter date"></md-datepicker>
+        </div>
+        <div layout="row">
+          <span flex></span>
+          <md-button class="md-raised md-primary md-hue-2" type="submit">
+            <md-icon>done_all</md-icon>
+            Payment received
+          </md-button>
+        </div>
+      </form>
+    </md-content>
+  </div>
+  <br>
+  <div class="md-whiteframe-z1">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 class="subtitle md-flex">Payments history</h2>
+      </div>
+    </md-toolbar>
+    <md-content flex class="md-padding">
+      <md-list class="md-dense" flex>
+        <md-subheader class="md-no-sticky">
+          Sent
+        </md-subheader>
+        <md-list-item class="md-2-line"
+                      ng-repeat="paymentEntry in user.employer.payments | orderBy:'-sentOn' "
+                      ng-if="paymentEntry.status==='Sent'">
+          <div class="md-list-item-text" flex layout="column">
+            <div layout="row">
+              <h3>{{ paymentEntry.productLabel }}</h3>
+              <span flex></span>
+              <h3>{{ paymentEntry.status }} on {{ getRelevantDate(paymentEntry) |
+                date:'short'}} </h3>
+            </div>
+            <div layout="row">
+              <p flex>{{ paymentEntry.productType }}</p>
+              <p flex>{{ paymentEntry.jobQuantity}}</p>
+              <p flex>USD {{ paymentEntry.price - (paymentEntry.discount || 0)}}</p>
+            </div>
+          </div>
+        </md-list-item>
+        <md-subheader class="md-no-sticky">
+          Paid
+        </md-subheader>
+        <md-list-item class="md-2-line"
+                      ng-repeat="paymentEntry in user.employer.payments | orderBy:'-paidOn'"
+                      ng-if="paymentEntry.status==='Paid'">
+          <div class="md-list-item-text" flex layout="column">
+            <div layout="row">
+              <h3>{{ paymentEntry.productLabel }}</h3>
+              <span flex></span>
+              <h3>{{ paymentEntry.status }} on {{ getRelevantDate(paymentEntry) |
+                date:'short'}} </h3>
+            </div>
+            <div layout="row">
+              <p flex>{{ paymentEntry.productType }}</p>
+              <p flex>{{ paymentEntry.jobQuantity}}</p>
+              <p flex>USD {{ paymentEntry.price - (paymentEntry.discount || 0)}}</p>
+            </div>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+</div>

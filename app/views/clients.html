@@ -1,0 +1,47 @@
+<div layout="column">
+  <md-input-container md-no-float class="md-icon-float md-block">
+    <md-icon>search</md-icon>
+    <input ng-model="searchClient"
+           type="text"
+           ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"
+           placeholder="Search client">
+  </md-input-container>
+  <div class="md-whiteframe-z1">
+    <md-toolbar class="md-primary">
+      <div layout="row" class="md-toolbar-tools">
+        <h2 class="md-flex">All employers</h2>
+        <span flex></span>
+        <!---->
+        <!--<md-input-container md-no-float class="md-icon-float md-block">-->
+        <!--<md-icon></md-icon>-->
+        <!--<input >-->
+        <!--</md-input-container>-->
+      </div>
+    </md-toolbar>
+    <md-content>
+      <md-list>
+        <md-list-item ng-repeat="employer in employers"
+                      class="md-3-line noright"
+                      ng-click="viewClient(employer)">
+          <img alt="{{ employer.name }} picture" ng-src="{{ employer.picture }}" class="md-avatar"/>
+          <div class="md-list-item-text" layout="column">
+            <h3><span class="md-accent">{{employer.name}}</span></h3>
+            <h4><span class="md-accent">{{employer.employer.company}}</span></h4>
+          </div>
+          <md-tooltip ng-if="employer.employer.payments.length > 0"
+                      md-delay="500"
+                      md-direction="right">
+            Paying
+          </md-tooltip>
+          <md-icon ng-if="employer.employer.payments.length > 0" class="md-primary">
+            attach_money
+          </md-icon>
+          <!--<span>-->
+          <!--{{payment.jobs.length}} job(s)-->
+          <!--</span>-->
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+
+</div>
